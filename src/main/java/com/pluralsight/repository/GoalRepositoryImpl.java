@@ -19,10 +19,15 @@ public class GoalRepositoryImpl implements GoalRepository {
 	private EntityManager em;
 	
 	public Goal save(Goal goal) {
-		
+		if(goal.getId() == null) {
+			
 		em.persist(goal);
 		
 		em.flush();
+		}
+		else {
+			goal = em.merge(goal);
+		}
 		
 		return goal;
 	}
